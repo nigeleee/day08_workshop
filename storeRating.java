@@ -9,77 +9,59 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 
-
 public class storeRating {
-    
-    
-    public static void main(String[] args) throws IOException {
-        
-       String fileName = "googleplaystore.csv";
-       String delimitter = ",";
 
-       
+    public static void main(String[] args) throws IOException {
+
+        String fileName = "googleplaystore.csv";
+        String delimitter = ",";
+
         Map<String, Double> lowestRating = new HashMap<>();
         Map<String, Double> highestRating = new HashMap<>();
         Map<String, Double> averageRating = new HashMap<>();
 
-        
         FileReader fr = new FileReader(fileName);
         BufferedReader br = new BufferedReader(fr);
-        
+
         String line;
 
         line = br.readLine();
 
-        while (null != (line = br.readLine())) {
-           String[] formattedWords = line.split(delimitter); 
-           String category = formattedWords[1]; 
-           String rating = formattedWords[2];
+        while ((line = br.readLine()) != null) {
+            String[] formattedWords = line.split(delimitter);
+            String category = formattedWords[1];
 
-           if(rating.equals("NaN")) {
-            continue; 
-        
-           }           
+            if (formattedWords[2].equals("NaN")) {
+                continue;
 
-           if(category.equals("1.9")) {
-            continue;
+            }
 
-           }
+            if (category.equals("1.9")) {
+                continue;
 
-           Double value = Double.parseDouble(rating);
-           
-           if(!highestRating.containsKey(category) || value < highestRating.size()) {
-                highestRating.put(category, value);
+            }
 
-           }
+            Double rating = Double.parseDouble(formattedWords[2]);
 
-           if(!lowestRating.containsKey(category) || value > lowestRating.size()){
-                lowestRating.put(category, value);
+            if (!highestRating.containsKey(category) || rating > highestRating.get(category)) {
+                highestRating.put(category, rating);
 
-           }
+            }
 
-           
-          } 
+            if (!lowestRating.containsKey(category) || rating < lowestRating.get(category)) {
+                lowestRating.put(category, rating);
 
-       
-            
+            }
 
-            System.out.println(highestRating);
-            System.out.println("------------");
-            System.out.println(lowestRating);
-           
-            br.close(); 
-            fr.close();
+        }
 
-          }
+        System.out.println(highestRating);
+        System.out.println("------------");
+        System.out.println(lowestRating);
 
-          
-    
+        br.close();
+        fr.close();
 
-  
+    }
 
-          }
-
- 
-       
-
+}
