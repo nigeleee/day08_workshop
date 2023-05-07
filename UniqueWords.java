@@ -47,9 +47,11 @@ public class UniqueWords {
         }
             br.close();
             
+
             for (String k: wordCount.keySet()) {
                 System.out.printf("word: %s, count: %d\n", k, wordCount.get(k));
             }
+            System.out.println("The number of unique words are: " + wordCount.size());
     
     }
     
